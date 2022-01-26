@@ -1,7 +1,7 @@
-class View
+class EmployeeView
     def display(array)
-        array.each_with_index do |meal, index|
-            puts "#{index + 1} #{meal.name}"
+        array.each_with_index do |employee, index|
+            puts "#{index + 1} #{employee.username}"
         end
     end
 
@@ -15,7 +15,7 @@ class View
         gets.chomp
     end
 
-    def ask_user_for_meal
+    def ask_user_for_employee
         p "Choose a meal by the number"
         gets.chomp.to_i - 1
     end

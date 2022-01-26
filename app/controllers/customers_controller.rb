@@ -11,7 +11,7 @@ class CustomersController
         name = @view.ask_user_customer
         address = @view.ask_user_address        
         new_customer = Customer.new(name: name, address: address)     
-        @repo.create(new_customer)
+        @repo.add(new_customer)
     end
 
     def list

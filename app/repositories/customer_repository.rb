@@ -12,7 +12,7 @@ class CustomerRepository
         end
     end
 
-    def create(customer)
+    def add(customer)
         customer.id = @next_id 
         @next_id += 1
         @customers << customer   

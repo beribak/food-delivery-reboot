@@ -27,26 +27,9 @@ describe "CustomersController", :customer do
   let(:csv_path) { "spec/support/customers.csv" }
   let(:repository) { CustomerRepository.new(csv_path) }
 
-  before(:each) do
-    CsvHelper.write_csv(csv_path, customers)
-  end
-
   it "should be initialized with a `CustomerRepository` instance" do
     controller = CustomersController.new(repository)
     expect(controller).to be_a(CustomersController)
-  end
-
-  describe "#add" do
-    it "should ask the user for a name and address, then store the new customer" do
-      controller = CustomersController.new(repository)
-      allow_any_instance_of(Object).to receive(:gets).and_return("Le Wagon")
-
-      controller.add
-
-      expect(repository.all.length).to eq(4)
-      expect(repository.all[3].name).to eq("Le Wagon")
-      expect(repository.all[3].address).to eq("Le Wagon")
-    end
   end
 
   describe "#list" do
@@ -57,6 +40,19 @@ describe "CustomersController", :customer do
       end
 
       controller.list
+    end
+  end
+
+  describe "#add" do
+    it "should ask the user for a name and address, then store the new customer" do
+      controller = CustomersController.new(repository)
+      Object.any_instance.stub(gets: "Le Wagon")
+
+      controller.add
+
+      expect(repository.all.length).to eq(4)
+      expect(repository.all[3].name).to eq("Le Wagon")
+      expect(repository.all[3].address).to eq("Le Wagon")
     end
   end
 end

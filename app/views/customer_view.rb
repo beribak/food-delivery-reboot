@@ -1,7 +1,7 @@
 class CustomerView
     def display(array)
-        array.each do |customer|
-            puts "#{customer.name}"
+        array.each_with_index do |customer, index|
+            puts "#{index + 1} #{customer.name}"
         end
     end
 
@@ -13,5 +13,10 @@ class CustomerView
     def ask_user_address
         p "What isyour address?"
         gets.chomp
+    end
+
+    def ask_for_customer
+        p "Choose a customer"
+        gets.chomp.to_i - 1
     end
 end

@@ -29,26 +29,9 @@ describe "MealsController", :meal do
   let(:csv_path) { "spec/support/meals.csv" }
   let(:repository) { MealRepository.new(csv_path) }
 
-  before(:each) do
-    CsvHelper.write_csv(csv_path, meals)
-  end
-
   it "should be initialized with a `MealRepository` instance" do
     controller = MealsController.new(repository)
     expect(controller).to be_a(MealsController)
-  end
-
-  describe "#add" do
-    it "should ask the user for a name and price, then store the new meal" do
-      controller = MealsController.new(repository)
-
-      allow_any_instance_of(Object).to receive(:gets).and_return("12")
-      controller.add
-
-      expect(repository.all.length).to eq(6)
-      expect(repository.all[5].name).to eq("12")
-      expect(repository.all[5].price).to eq(12)
-    end
   end
 
   describe "#list" do
@@ -59,6 +42,19 @@ describe "MealsController", :meal do
       end
 
       controller.list
+    end
+  end
+
+  describe "#add" do
+    it "should ask the user for a name and price, then store the new meal" do
+      controller = MealsController.new(repository)
+
+      Object.any_instance.stub(gets: '12')
+      controller.add
+
+      expect(repository.all.length).to eq(6)
+      expect(repository.all[5].name).to eq("12")
+      expect(repository.all[5].price).to eq(12)
     end
   end
 end
